@@ -1,30 +1,38 @@
 package com.example.api_db.controller;
 
 import com.example.api_db.entity.User;
-import com.example.api_db.repository.UserRepository;
 import com.example.api_db.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.example.api_db.repository.UserRepository;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    private UserService service;
 
-    @GetMapping("/getusers")
-    public List < User > getAllUsers() {
-        return userService.findAll();
+    @GetMapping("/getall")
+    public List getAllUsers() {
+        return service.listAll();
     }
 
-    @PostMapping("/createuser/")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        User createdUser = userService.createUser(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
+    @GetMapping("/users/{id}")
+    public User getUserById(@PathVariable Integer id) {
+        return service.getById(id);
     }
+
+    @PostMapping("/createuser")
+    public User createUser(@RequestBody User user) {
+
+        return service.save(user);
+    }
+
+    @DeleteMapping("/deleteuser{id}")
+    public void deleteUser(@RequestBody Integer id) {
+        service.delete(id);
+    }
+
 }
+
