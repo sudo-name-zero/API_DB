@@ -1,4 +1,4 @@
-# API_DB
+# Java_Api_MariaDB
 Basic CRUD user API code
 OpenAi API request implementation
 
